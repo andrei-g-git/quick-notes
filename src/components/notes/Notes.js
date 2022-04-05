@@ -6,9 +6,11 @@ import { notesLoaded } from "../../redux/actions.js";
 import Note from "../note/Note.js";
 
 let fs = require("react-native-fs");
-const path = fs.ExternalDirectoryPath + "/test.json";
+//const path = fs.ExternalDirectoryPath + "/test.json";
 
 const Notes = (props) => {
+
+    const path = fs.ExternalDirectoryPath + props.path;
 
     useEffect(() => {
         fs.readFile(path)

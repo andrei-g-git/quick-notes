@@ -1,6 +1,9 @@
 import {
     NOTES_LOADED,
-    EDITING
+    EDITING, //not using
+    EDITED_AT_INDEX,
+    NOTES_UPDATED,
+    TOGGLED_EDITOR
 } from "./actionTypes";
 
 const initialState = {
@@ -10,7 +13,9 @@ const initialState = {
             id: 3243243
         }
     ],
-    contentEdit: ""
+    note: "", 
+    noteToEdit: 0,
+    editorOpen: false
 }
 
 export const notesReducer = (state = initialState, action) => {
@@ -20,11 +25,26 @@ export const notesReducer = (state = initialState, action) => {
                 ...state,
                 notes: action.payload
             };
-            case EDITING:
+            case EDITING: //not using
                 return{
                     ...state,
-                    contentEdit: action.payload
-                };            
+                    note: action.payload
+                };     
+            case EDITED_AT_INDEX:
+                return{
+                    ...state,
+                    noteToEdit: action.payload
+                };      
+            case NOTES_UPDATED: 
+                return{
+                    ...state,
+                    note: action.payload
+                };    
+            case TOGGLED_EDITOR:
+                return{
+                    ...state,
+                    editorOpen: action.payload
+                }                                 
         default:
             return state;
     }

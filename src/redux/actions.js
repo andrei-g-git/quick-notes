@@ -7,14 +7,37 @@ const notesLoaded = (notes) => {
     }
 }
 
-const editing = (content) => {
+const editing = (content) => { //not using
     return{
         type: actionTypes.EDITING,
         payload: content
     }
 }
 
+const editedAtIndex = (index) => {
+    return{
+        type: actionTypes.EDITED_AT_INDEX,
+        payload: index
+    }
+}
+
+const notesUpdated = (content) => {
+    return{
+        type: actionTypes.NOTES_UPDATED,
+        payload: content
+    }    
+}
+
+const toggledEditor = (isOpen) => {
+    return{
+        type: actionTypes.TOGGLED_EDITOR,
+        payload: isOpen
+    }
+}
 export {
     notesLoaded,
-    editing
+    editing, //not using
+    editedAtIndex,
+    notesUpdated,
+    toggledEditor
 }
