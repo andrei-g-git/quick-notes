@@ -28,8 +28,10 @@ const Notes = (props) => {
         <View>
             <FlatList testID="notes"
                 data={props.notes}
-                renderItem={({item}) => (
-                    <Note content={item.content} />
+                renderItem={({item, index}) => (
+                    <Note content={item.content} 
+                        index={index}
+                    />
                 )}
                 keyExtractor={item => item.id}
             />

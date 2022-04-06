@@ -18,7 +18,6 @@ function OpenEditor(props) {
                 props.openEditor(true);
             }}
         >
-            <Text>blah blah</Text>
             {props.children}
         </TouchableOpacity>
     )

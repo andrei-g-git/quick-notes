@@ -1,15 +1,14 @@
 import React from "react";
 import { 
-    View, 
-    Text, 
-    TouchableOpacity 
+    Text
 } from "react-native"
+import OpenEditor from "../open-editor/OpenEditor";
 
 const Note = (props) => {
     return(
-        <TouchableOpacity>
+        <OpenEditor noteIndex={props.index}>
             <Text>{props.content}</Text>
-        </TouchableOpacity>
+        </OpenEditor>
     );
 }
 

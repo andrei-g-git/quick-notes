@@ -6,6 +6,7 @@ import Editor from "./editor/Editor";
 import OpenEditor from "./open-editor/OpenEditor";
 import { notesUpdated, toggledEditor } from "../redux/actions";
 import { writeJsonFile } from "../utils/writeJsonFile";
+import { saveNoteToFile } from "./main/saveNoteTofile";
 
 const relativePath = "/test.json";
 
@@ -31,15 +32,18 @@ class Main extends React.Component{
     render(){
         return(
             <View style={{width: "100%", height: "100%"}}>
-                <Notes path={relativePath}/>
 
-                <OpenEditor noteIndex={this.props.notes.length}> 
+                <OpenEditor noteIndex={this.props.notes.length} > 
                     <Image style={{width: 128, height: 128}}
                         source={require("../assets/ui/plus.png")}
                     >
                         
                     </Image>
                 </OpenEditor>
+
+
+                <Notes path={relativePath}/> 
+
                 {
                     this.props.editorOpen ?
                         <Editor submit={(text) => this.submitEditedText(text)}/>
@@ -52,30 +56,15 @@ class Main extends React.Component{
     }
 
     submitEditedText = (text) => {
-        const index = this.props.index; //referencing 'this' means it's not a pure function and it's hard to test
-        //content below should be helper function in different file with both TEXT and NOTES props, then I can test it
-        let notes = this.props.notes;
-        const date = (new Date()).getTime();
-        const noteObject = {
-            content: text,
-            id: date
-        };
-        //console.log(JSON.stringify(notes))
-        notes[index] = noteObject;
-        const notesJson = JSON.stringify(notes);
-        //console.log(notesJson)
-        const testPath = writeJsonFile(relativePath, notesJson);
-
-        this.props.openEditor(false); //parameter = isOpen
-
-        return {
-            path: testPath,
-            json: notesJson
-        } //for testing
+        saveNoteToFile(
+            text,
+            this.props.notes,
+            this.props.index,
+            relativePath
+        )
+        this.props.openEditor(false); 
     }
 }
-
-
 
 const mapStateToProps = (state) => {
     return{
