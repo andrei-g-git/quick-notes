@@ -7,6 +7,7 @@ import OpenEditor from "./open-editor/OpenEditor";
 import { notesUpdated, toggledEditor } from "../redux/actions";
 import { writeJsonFile } from "../utils/writeJsonFile";
 import { saveNoteToFile } from "./main/saveNoteTofile";
+import { styles } from "./main/MainStyles";
 
 const relativePath = "/test.json";
 
@@ -31,10 +32,11 @@ const relativePath = "/test.json";
 class Main extends React.Component{ 
     render(){
         return(
-            <View style={{width: "100%", height: "100%"}}>
+            <View style={styles.main}>
 
-                <OpenEditor noteIndex={this.props.notes.length} > 
-                    <Image style={{width: 128, height: 128}}
+                <OpenEditor style={styles.addNoteContainer}
+                    noteIndex={this.props.notes.length} > 
+                    <Image style={styles.addNote}
                         source={require("../assets/ui/plus.png")}
                     >
                         

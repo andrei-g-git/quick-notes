@@ -6,13 +6,14 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux';
 import { editedAtIndex, toggledEditor } from "../../redux/actions";
+import { styles } from "./OpenEditorStyles";
 
 function OpenEditor(props) {
 
     const abc = 123;
 
     return (
-        <TouchableOpacity style={{ width: 128, height: 128 }} // delete style
+        <TouchableOpacity style={[props.style, styles.openEditor]} 
             onPress={() => {
                 props.openNotesAtIndex(props.noteIndex);
                 props.openEditor(true);

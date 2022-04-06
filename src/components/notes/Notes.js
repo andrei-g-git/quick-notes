@@ -1,12 +1,28 @@
 import React from "react";
-import { View, FlatList, Text } from "react-native";
+import { 
+    View, 
+    FlatList, 
+    Text} from "react-native";
+import { SwipeListView } from "react-native-swipe-list-view";
 import { connect } from "react-redux";
 import { useEffect } from "react";
 import { notesLoaded } from "../../redux/actions.js";
 import Note from "../note/Note.js";
+import { styles } from "./NotesStyles";
+
+
+//delete
+const testStyle = {
+    alignItems: 'center',
+    backgroundColor: 'red',
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingLeft: 15
+}
+
 
 let fs = require("react-native-fs");
-//const path = fs.ExternalDirectoryPath + "/test.json";
 
 const Notes = (props) => {
 
@@ -25,8 +41,8 @@ const Notes = (props) => {
     },[])
 
     return(
-        <View>
-            <FlatList testID="notes"
+        <View style={styles.notes}>
+            <SwipeListView testID="notes"
                 data={props.notes}
                 renderItem={({item, index}) => (
                     <Note content={item.content} 
@@ -34,6 +50,20 @@ const Notes = (props) => {
                     />
                 )}
                 keyExtractor={item => item.id}
+
+
+                renderHiddenItem={ (data, rowMap) => (
+                    <View style={testStyle}>
+{/*                         <Text>Left</Text>
+                        <Text>Right</Text> */}
+                        <View style={{width: 50, height: "100%", backgroundColor: "blue"}}/>
+                        <View style={{width: 50, height: 20, backgroundColor: "pink"}}/>
+                    </View>
+                )}
+                leftOpenValue={50}
+                rightOpenValue={-50}
+
+
             />
         </View>
     );

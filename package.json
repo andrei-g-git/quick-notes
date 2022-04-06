@@ -13,8 +13,13 @@
     "react": "17.0.2",
     "react-native": "0.68.0",
     "react-native-fs": "^2.19.0",
+    "react-native-swipe-list-view": "^3.2.9",
     "react-redux": "^7.2.8",
     "redux": "^4.1.2"
+  },
+  "comment-dependencies": {
+    "DELETED!!": "also delete from package lock, uninstall hangs",
+    "react-native-draggable-flatlist": "LEAVE AT 2.5.5 OR BELOW, newer versions have reanimated v2 which doesn't suport remote debugging!!!"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
@@ -41,5 +46,4 @@
       }
     }
   }
-
 }
