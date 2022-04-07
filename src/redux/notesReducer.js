@@ -14,7 +14,7 @@ const initialState = {
         }
     ],
     note: "", 
-    noteToEdit: 0,
+    noteToEdit: 0, //there is sort of a duplicate in ui reducer ...
     editorOpen: false
 }
 

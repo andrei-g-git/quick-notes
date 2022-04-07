@@ -4,9 +4,16 @@ import { connect } from "react-redux";
 import Notes from "./notes/Notes";
 import Editor from "./editor/Editor";
 import OpenEditor from "./open-editor/OpenEditor";
-import { notesUpdated, toggledEditor } from "../redux/actions";
-import { writeJsonFile } from "../utils/writeJsonFile";
+import ConfirmDelete from "./confirm-delete/ConfirmDelete";
+import { 
+    notesUpdated, 
+    toggledEditor,
+    toggledDeleteConfirmation,
+    notesLoaded 
+} from "../redux/actions";
+import { writeToJsonFile } from "../utils/writeToJsonFile";
 import { saveNoteToFile } from "./main/saveNoteTofile";
+import { deleteNote } from "../utils/deleteNote";
 import { styles } from "./main/MainStyles";
 
 const relativePath = "/test.json";
@@ -53,6 +60,17 @@ class Main extends React.Component{
                         null
                 }
                 
+                {
+                    this.props.confirmDeleteOpen ?
+                        <ConfirmDelete 
+                            deleteNote={this.handleDeleteNote }
+                            close={this.handleCloseDeleteModal}
+                        />
+                    :
+                        null
+                }
+                
+
             </View>
         )        
     }
@@ -66,6 +84,23 @@ class Main extends React.Component{
         )
         this.props.openEditor(false); 
     }
+
+    handleDeleteNote = () => {
+
+        const updatedNotes = deleteNote(this.props.notes, this.props.deleteIndex)
+
+        this.props.loadNotes(updatedNotes);
+
+        //and then write to file
+        console.log("........000")
+        writeToJsonFile(relativePath, updatedNotes);
+
+        this.props.openConfirmation(false);
+    }
+
+    handleCloseDeleteModal = () => {
+        this.props.openConfirmation(false);
+    }
 }
 
 const mapStateToProps = (state) => {
@@ -73,7 +108,9 @@ const mapStateToProps = (state) => {
         notes: state.notes.notes,
         note: state.notes.note,     
         index: state.notes.noteToEdit,
-        editorOpen: state.notes.editorOpen
+        editorOpen: state.notes.editorOpen,
+        confirmDeleteOpen: state.ui.confirmDeleteOpen,
+        deleteIndex: state.ui.deleteIndex
     }
 }
 
@@ -81,7 +118,13 @@ const mapDispatchToProps = (dispatch) => {
     return{
         openEditor: (isOpen) => {
             dispatch(toggledEditor(isOpen));
-        }
+        },
+        openConfirmation: (isOpen) => {
+            dispatch(toggledDeleteConfirmation(isOpen))
+        },
+        loadNotes: (notes) => {
+            dispatch(notesLoaded(notes));
+        }        
     }
 }
 

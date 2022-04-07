@@ -34,10 +34,35 @@ const toggledEditor = (isOpen) => {
         payload: isOpen
     }
 }
+
+const toggledDeleteConfirmation = (isOpen) => {
+    return{
+        type: actionTypes.TOGGLED_DELETE_CONFIRMATION,
+        payload: isOpen
+    }
+}
+
+const noteDeleted = (index) => {
+    return{
+        type: actionTypes.NOTE_DELETED,
+        payload: index
+    }
+}
+
+const deleteIndexPressed = (index) => {
+    return{
+        type: actionTypes.DELETE_INDEX_PRESSED,
+        payload: index
+    }
+}
+
 export {
     notesLoaded,
     editing, //not using
     editedAtIndex,
     notesUpdated,
-    toggledEditor
+    toggledEditor,
+    toggledDeleteConfirmation,
+    noteDeleted,
+    deleteIndexPressed
 }

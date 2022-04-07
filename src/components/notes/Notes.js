@@ -2,23 +2,25 @@ import React from "react";
 import { 
     View, 
     FlatList, 
-    Text} from "react-native";
+    Text,
+    TouchableOpacity} from "react-native";
 import { SwipeListView } from "react-native-swipe-list-view";
 import { connect } from "react-redux";
 import { useEffect } from "react";
 import { notesLoaded } from "../../redux/actions.js";
 import Note from "../note/Note.js";
+import DeleteNote from "../delete-note/DeleteNote.js";
 import { styles } from "./NotesStyles";
 
 
 //delete
 const testStyle = {
-    alignItems: 'center',
-    backgroundColor: 'red',
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-between',
-    paddingLeft: 15
+    paddingLeft: 15,
+
+    zIndex: -1
 }
 
 
@@ -52,16 +54,19 @@ const Notes = (props) => {
                 keyExtractor={item => item.id}
 
 
-                renderHiddenItem={ (data, rowMap) => (
-                    <View style={testStyle}>
-{/*                         <Text>Left</Text>
-                        <Text>Right</Text> */}
-                        <View style={{width: 50, height: "100%", backgroundColor: "blue"}}/>
-                        <View style={{width: 50, height: 20, backgroundColor: "pink"}}/>
-                    </View>
+                renderHiddenItem={ ({item, index}) => (
+                    // <View style={testStyle}>
+                    //     <TouchableOpacity style={{width: 80, height: "100%", backgroundColor: "blue"}}>
+                    //         <Text>EDIT</Text>
+                    //     </TouchableOpacity>
+                    //     <TouchableOpacity style={{width: 80, height: 20, backgroundColor: "pink"}}>
+                    //         <Text>DELETE</Text>
+                    //     </TouchableOpacity>
+                    // </View>
+                    <DeleteNote index={index}></DeleteNote>
                 )}
-                leftOpenValue={50}
-                rightOpenValue={-50}
+                leftOpenValue={80}
+                rightOpenValue={-80}
 
 
             />
