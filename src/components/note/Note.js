@@ -1,7 +1,9 @@
 import React from "react";
 import { 
     View,
-    Text
+    Text,
+    Image,
+    ImageBackground
 } from "react-native"
 import OpenEditor from "../open-editor/OpenEditor";
 import { styles } from "./NoteStyles";
@@ -10,7 +12,11 @@ const Note = (props) => {
     return(
         <OpenEditor noteIndex={props.index}>
             <View style={styles.note}>
-                <Text style={styles.content}>{props.content}</Text>
+                <ImageBackground style={styles.background}
+                    source={require("../../assets/ui/note-1-green.png")}
+                >
+                    <Text style={styles.content}>{props.content}</Text>  
+                </ImageBackground>
             </View>
         </OpenEditor>
     );

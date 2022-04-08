@@ -1,10 +1,15 @@
 import React from "react";
-import { View, Text, Image } from "react-native";
+import { 
+    View, 
+    ImageBackground, 
+    Image 
+} from "react-native";
 import { connect } from "react-redux";
 import Notes from "./notes/Notes";
 import Editor from "./editor/Editor";
 import OpenEditor from "./open-editor/OpenEditor";
 import ConfirmDelete from "./confirm-delete/ConfirmDelete";
+import Header from "./header/Header";
 import { 
     notesUpdated, 
     toggledEditor,
@@ -16,31 +21,18 @@ import { saveNoteToFile } from "./main/saveNoteTofile";
 import { deleteNote } from "../utils/deleteNote";
 import { styles } from "./main/MainStyles";
 
+
 const relativePath = "/test.json";
 
-// const dummyJson = [
-//     {
-//         content: "xxxxx",
-//         id: 11111111111
-//     },
-//     {
-//         content: "yyyyy",
-//         id: 2222222
-//     },
-//     {
-//         content: "zzzzzzzz",
-//         id: 3333333333
-//     }
-// ]
-
-// writeJsonFile(relativePath, JSON.stringify(dummyJson))
-
-//const Main = (props) =>{
 class Main extends React.Component{ 
     render(){
         return(
             <View style={styles.main}>
+                <Header />
 
+                <Image style={{width: "100%", height: "100%", position: "absolute", top: 0, left: 0}}
+                    source={require("../assets/ui/background-lightgreen.jpg")}
+                />
                 <OpenEditor style={styles.addNoteContainer}
                     noteIndex={this.props.notes.length} > 
                     <Image style={styles.addNote}
@@ -70,7 +62,6 @@ class Main extends React.Component{
                         null
                 }
                 
-
             </View>
         )        
     }
@@ -92,7 +83,6 @@ class Main extends React.Component{
         this.props.loadNotes(updatedNotes);
 
         //and then write to file
-        console.log("........000")
         writeToJsonFile(relativePath, updatedNotes);
 
         this.props.openConfirmation(false);

@@ -13,17 +13,6 @@ import DeleteNote from "../delete-note/DeleteNote.js";
 import { styles } from "./NotesStyles";
 
 
-//delete
-const testStyle = {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    paddingLeft: 15,
-
-    zIndex: -1
-}
-
-
 let fs = require("react-native-fs");
 
 const Notes = (props) => {
@@ -33,18 +22,18 @@ const Notes = (props) => {
     useEffect(() => {
         fs.readFile(path)
             .then((rawData) => {
-                console.log("raw data is     " + rawData);
                 return JSON.parse(rawData);                
             })
             .then((dataObject) => {
                 props.loadNotes(dataObject);
             });
         
-    },[])
+    },[/* props.notes */])
 
     return(
-        <View style={styles.notes}>
-            <SwipeListView testID="notes"
+        <View style={[styles.notes, {flex: 1}]}>
+            <SwipeListView contentContainerStyle={{}}
+                testID="notes"
                 data={props.notes}
                 renderItem={({item, index}) => (
                     <Note content={item.content} 
@@ -53,16 +42,7 @@ const Notes = (props) => {
                 )}
                 keyExtractor={item => item.id}
 
-
                 renderHiddenItem={ ({item, index}) => (
-                    // <View style={testStyle}>
-                    //     <TouchableOpacity style={{width: 80, height: "100%", backgroundColor: "blue"}}>
-                    //         <Text>EDIT</Text>
-                    //     </TouchableOpacity>
-                    //     <TouchableOpacity style={{width: 80, height: 20, backgroundColor: "pink"}}>
-                    //         <Text>DELETE</Text>
-                    //     </TouchableOpacity>
-                    // </View>
                     <DeleteNote index={index}></DeleteNote>
                 )}
                 leftOpenValue={80}

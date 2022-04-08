@@ -1,10 +1,13 @@
 import React from 'react';
 import {
     TouchableOpacity,
-    Text
+    Text,
+    Image,
+    View
 } from "react-native";
 import { connect } from "react-redux";
 import { deleteIndexPressed, toggledDeleteConfirmation } from "../../redux/actions";
+import { styles } from "./DeleteNoteStyles";
 
 function DeleteNote(props) {
   return (
@@ -15,9 +18,12 @@ function DeleteNote(props) {
             props.openConfirmationModal(true);
         }}
     >
-        <Text>
-            Delete
-        </Text>
+        <View style={{/* justifyContent: "center" */}}>
+            <Image style={styles.icon}
+                source={require("../../assets/ui/delete-pink.png")}
+            />
+        </View>
+
     </TouchableOpacity>
   )
 }

@@ -3,7 +3,8 @@ import { StyleSheet } from "react-native";
 export const styles = StyleSheet.create({
     notes: {
         width: "100%",
-        //flexDirection: "column",
-        alignItems: "center"
+        marginTop: 15,
+        paddingLeft: 5,
+        //position: "relative"
     }
 })

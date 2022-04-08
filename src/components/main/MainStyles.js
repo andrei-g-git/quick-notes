@@ -4,7 +4,7 @@ export const styles = StyleSheet.create({
     main: {
         width: "100%", 
         height: "100%",
-        backgroundColor: "rgb(100, 255, 100)"
+        //backgroundColor: "rgb(100, 255, 100)"
     },
     addNoteContainer: {
         position: "absolute", 
