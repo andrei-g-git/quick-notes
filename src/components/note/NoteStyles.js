@@ -3,16 +3,27 @@ import { StyleSheet } from "react-native";
 export const styles = StyleSheet.create({
     note: {
         width: "100%",
-        height: 60,
+        height: 70,
         marginTop: 10
     },
     content: {
         fontSize: 22,
     },
+    blob: {
+        width: 24,
+        height: 24,
+        marginRight: 10,
+        //tintColor: "lightgray"
+    },
     background: {
-        width: "150%", 
-        height: "100%",
-        paddingLeft: 40,
-        justifyContent: "center"
+        flex: 1,
+        flexDirection: "row",
+        // width: undefined, 
+        // height: undefined,
+        width: "115%", 
+        height: undefined,
+        paddingLeft: 30,
+        //justifyContent: "center"
+        alignItems: "center"
     }
 });

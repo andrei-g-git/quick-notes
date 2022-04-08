@@ -4,7 +4,6 @@ export const styles = StyleSheet.create({
     main: {
         width: "100%", 
         height: "100%",
-        //backgroundColor: "rgb(100, 255, 100)"
     },
     addNoteContainer: {
         position: "absolute", 
@@ -14,6 +13,7 @@ export const styles = StyleSheet.create({
     },
     addNote: {
         width: 64,
-        height: 64
+        height: 64,
+        tintColor: "#ffcc00"
     }
 });
