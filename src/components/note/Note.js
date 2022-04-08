@@ -2,7 +2,6 @@ import React from "react";
 import { 
     View,
     Text,
-    Image,
     ImageBackground
 } from "react-native"
 import OpenEditor from "../open-editor/OpenEditor";

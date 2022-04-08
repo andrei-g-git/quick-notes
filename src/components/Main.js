@@ -18,7 +18,7 @@ import {
 } from "../redux/actions";
 import { writeToJsonFile } from "../utils/writeToJsonFile";
 import { saveNoteToFile } from "./main/saveNoteTofile";
-import { deleteNote } from "../utils/deleteNote";
+import { deleteNote } from "../utils/manageNotes";
 import { styles } from "./main/MainStyles";
 
 
@@ -36,7 +36,7 @@ class Main extends React.Component{
                 <OpenEditor style={styles.addNoteContainer}
                     noteIndex={this.props.notes.length} > 
                     <Image style={styles.addNote}
-                        source={require("../assets/ui/plus.png")}
+                        source={require("../assets/ui/plus-pink.png")}
                     >
                         
                     </Image>
@@ -67,7 +67,7 @@ class Main extends React.Component{
     }
 
     submitEditedText = (text) => {
-        saveNoteToFile(
+        saveNoteToFile( //THIS DOES NOT ACTUALLY UPDATE THE NOTE ARRAY IN THE STORE, IT WRITES THE DATA TO FILE DIRECTLY
             text,
             this.props.notes,
             this.props.index,

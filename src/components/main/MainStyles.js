@@ -13,7 +13,7 @@ export const styles = StyleSheet.create({
         zIndex: 999
     },
     addNote: {
-        width: 48,
-        height: 48
+        width: 64,
+        height: 64
     }
 });
