@@ -6,7 +6,9 @@ import {
     View
 } from "react-native";
 import { connect } from "react-redux";
-import { deleteIndexPressed, toggledDeleteConfirmation } from "../../redux/actions";
+import { deleteIndexPressed, toggledDeleteConfirmation, notesLoaded } from "../../redux/actions";
+import { deleteNote } from '../../utils/manageNotes';
+import { writeToJsonFile } from '../../utils/writeToJsonFile';
 import { styles } from "./DeleteNoteStyles";
 
 function DeleteNote(props) {
@@ -14,8 +16,12 @@ function DeleteNote(props) {
     <TouchableOpacity style={{}}
         onPress={() => {
             console.log(props.index)
-            props.markNoteIndex(props.index);
-            props.openConfirmationModal(true);
+            // props.markNoteIndex(props.index);
+            // props.openConfirmationModal(true);
+
+
+            //handleDeleteNote(props)
+            props.delete(props.index)
         }}
     >
         <View style={{/* justifyContent: "center" */}}>
@@ -28,6 +34,24 @@ function DeleteNote(props) {
   )
 }
 
+const handleDeleteNote = (props) => {
+
+    const updatedNotes = deleteNote(props.notes, props.index)
+
+    props.loadNotes(updatedNotes);
+
+    //and then write to file
+    writeToJsonFile(relativePath, updatedNotes);
+
+    //this.props.openConfirmation(false);
+}
+
+const mapStateToProps = (state) => {
+    return{
+        notes: state.notes.notes
+    }
+}
+
 const mapDispatchToProps = (dispatch) => {
     return{
         markNoteIndex: (index) => {
@@ -35,8 +59,11 @@ const mapDispatchToProps = (dispatch) => {
         },
         openConfirmationModal: (isOpen) => {
             dispatch(toggledDeleteConfirmation(isOpen))
-        }
+        },
+        loadNotes: (notes) => {
+            dispatch(notesLoaded(notes));
+        }     
     }
 }
 
-export default connect(null, mapDispatchToProps)(DeleteNote);
+export default connect(mapStateToProps, mapDispatchToProps)(DeleteNote);

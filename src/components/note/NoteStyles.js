@@ -7,7 +7,7 @@ export const styles = StyleSheet.create({
         marginTop: 10
     },
     content: {
-        fontSize: 22,
+        fontSize: 18,
     },
     blob: {
         width: 24,

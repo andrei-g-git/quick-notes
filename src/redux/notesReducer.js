@@ -10,7 +10,8 @@ const initialState = {
     notes: [
         {
             content: "hello",
-            id: 3243243
+            id: 3243243,
+            color: "orange"
         }
     ],
     note: "", 

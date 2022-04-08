@@ -1,58 +1,70 @@
 import React from "react";
 import { 
     View, 
-    FlatList, 
-    Text,
-    TouchableOpacity} from "react-native";
+} from "react-native";
 import { SwipeListView } from "react-native-swipe-list-view";
 import { connect } from "react-redux";
-import { useEffect } from "react";
 import { notesLoaded } from "../../redux/actions.js";
+import { deleteNote } from "../../utils/manageNotes.js";
+import { writeToJsonFile } from "../../utils/writeToJsonFile.js";
 import Note from "../note/Note.js";
 import DeleteNote from "../delete-note/DeleteNote.js";
 import { styles } from "./NotesStyles";
 
-
 let fs = require("react-native-fs");
 
-const Notes = (props) => {
+class Notes extends React.Component{
 
-    const path = fs.ExternalDirectoryPath + props.path;
+    path = fs.ExternalDirectoryPath + this.props.path;
 
-    useEffect(() => {
-        fs.readFile(path)
+    componentDidMount(){
+        fs.readFile(this.path)
             .then((rawData) => {
+                console.log(rawData)
                 return JSON.parse(rawData);                
             })
             .then((dataObject) => {
-                props.loadNotes(dataObject);
+                this.props.loadNotes(dataObject);
             });
-        
-    },[/* props.notes */])
+    }
 
-    return(
-        <View style={[styles.notes, {flex: 1}]}>
-            <SwipeListView contentContainerStyle={{}}
-                testID="notes"
-                data={props.notes}
-                renderItem={({item, index}) => (
-                    <Note content={item.content} 
-                        index={index}
-                    />
-                )}
-                keyExtractor={item => item.id}
+    render(){
 
-                renderHiddenItem={ ({item, index}) => (
-                    <DeleteNote index={index}></DeleteNote>
-                )}
-                leftOpenValue={80}
-                rightOpenValue={-80}
+        return(
+            <View style={[styles.notes, {flex: 1}]}>
+                <SwipeListView contentContainerStyle={{}}
+                    testID="notes"
+                    data={this.props.notes}
+                    renderItem={({item, index}) => (
+                        <Note content={item.content} 
+                            index={index}
+                            color={item.color}
+                        />
+                    )}
+                    keyExtractor={item => item.id}
+
+                    renderHiddenItem={ ({item, index}) => (
+                        <DeleteNote index={index} 
+                            delete={this.handleDeleteNote}
+                        />
+                    )}
+                    leftOpenValue={80}
+                    rightOpenValue={-80}
 
 
-            />
-        </View>
-    );
+                />
+            </View>
+        );
+    }
+
+    handleDeleteNote = (index) => {
+        const updatedNotes = deleteNote(this.props.notes, index)
+        this.props.loadNotes(updatedNotes);
+        writeToJsonFile(this.path, updatedNotes);
+    }
 }
+
+
 
 const mapStateToProps = (state) => {
     return{
