@@ -20,7 +20,18 @@ const absolutePositioning = (top, right, bottom, left, width, height) => {
     }
 }
 
+const flexPositioning = (justify = "center", align = "center", width, height) => {
+    return{
+        flex: 1,
+        justifyContent: "center",//justify,
+        alignItems: "center",//align,
+        width: "100%",//width,
+        height: "100%",//height
+    }
+}
+
 export {
     viewportContainer,
-    absolutePositioning
+    absolutePositioning,
+    flexPositioning
 }
