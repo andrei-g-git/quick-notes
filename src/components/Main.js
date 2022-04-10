@@ -4,6 +4,9 @@ import {
     ImageBackground, 
     Image 
 } from "react-native";
+///////////////////
+//import FastImage from "react-native-fast-image";
+
 import { connect } from "react-redux";
 import Notes from "./notes/Notes";
 import Editor from "./editor/Editor";
@@ -48,6 +51,7 @@ class Main extends React.Component{
     render(){
         return(
             <View style={styles.main}>
+
                 <Header />
 
                 <Image style={{width: "100%", height: "100%", position: "absolute", top: 0, left: 0}}

@@ -5,7 +5,7 @@ export const styles = StyleSheet.create({
         position: "absolute", 
         bottom: 10, 
         right: 10, 
-        zIndex: 999
+        zIndex: 1
     },
     icon: {
         width: 64,
